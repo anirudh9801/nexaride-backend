@@ -1,0 +1,54 @@
+2026-06-13 09:25:10 [main] INFO  c.n.o.OtpServiceApplicationTests:53 - Starting OtpServiceApplicationTests using Java 17.0.19 with PID 26276 (started by anirudhm in C:\NexaRide\otp-service)
+2026-06-13 09:25:10 [main] DEBUG c.n.o.OtpServiceApplicationTests:54 - Running with Spring Boot v3.5.15, Spring v6.2.19
+2026-06-13 09:25:10 [main] INFO  c.n.o.OtpServiceApplicationTests:652 - No active profile set, falling back to 1 default profile: "default"
+2026-06-13 09:25:12 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate:145 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-13 09:25:12 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate:213 - Finished Spring Data repository scanning in 88 ms. Found 1 JPA repository interface.
+2026-06-13 09:25:12 [main] INFO  o.h.jpa.internal.util.LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-13 09:25:13 [main] INFO  org.hibernate.Version:44 - HHH000412: Hibernate ORM core version 6.6.53.Final
+2026-06-13 09:25:13 [main] INFO  o.h.c.i.RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+2026-06-13 09:25:13 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo:87 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-13 09:25:13 [main] INFO  com.zaxxer.hikari.HikariDataSource:109 - HikariPool-1 - Starting...
+2026-06-13 09:25:14 [main] INFO  com.zaxxer.hikari.pool.HikariPool:580 - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3c9f4376
+2026-06-13 09:25:14 [main] INFO  com.zaxxer.hikari.HikariDataSource:122 - HikariPool-1 - Start completed.
+2026-06-13 09:25:14 [main] INFO  o.hibernate.orm.connections.pooling:163 - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.35
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-13 09:25:15 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-13 09:25:15 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean:447 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-13 09:25:16 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration:258 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-13 09:25:16 [main] INFO  c.n.o.OtpServiceApplicationTests:59 - Started OtpServiceApplicationTests in 6.574 seconds (process running for 8.662)
+2026-06-13 09:25:17 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean:660 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-13 09:25:17 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource:349 - HikariPool-1 - Shutdown initiated...
+2026-06-13 09:25:17 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource:351 - HikariPool-1 - Shutdown completed.
+2026-06-13 09:28:13 [main] INFO  c.n.o.OtpServiceApplicationTests:53 - Starting OtpServiceApplicationTests using Java 17.0.19 with PID 29600 (started by anirudhm in C:\NexaRide\otp-service)
+2026-06-13 09:28:13 [main] DEBUG c.n.o.OtpServiceApplicationTests:54 - Running with Spring Boot v3.5.15, Spring v6.2.19
+2026-06-13 09:28:13 [main] INFO  c.n.o.OtpServiceApplicationTests:652 - No active profile set, falling back to 1 default profile: "default"
+2026-06-13 09:28:14 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate:145 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-13 09:28:14 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate:213 - Finished Spring Data repository scanning in 86 ms. Found 1 JPA repository interface.
+2026-06-13 09:28:15 [main] INFO  o.h.jpa.internal.util.LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-13 09:28:15 [main] INFO  org.hibernate.Version:44 - HHH000412: Hibernate ORM core version 6.6.53.Final
+2026-06-13 09:28:15 [main] INFO  o.h.c.i.RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+2026-06-13 09:28:15 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo:87 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-13 09:28:15 [main] INFO  com.zaxxer.hikari.HikariDataSource:109 - HikariPool-1 - Starting...
+2026-06-13 09:28:16 [main] INFO  com.zaxxer.hikari.pool.HikariPool:580 - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@52856ff9
+2026-06-13 09:28:16 [main] INFO  com.zaxxer.hikari.HikariDataSource:122 - HikariPool-1 - Start completed.
+2026-06-13 09:28:16 [main] INFO  o.hibernate.orm.connections.pooling:163 - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.35
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-13 09:28:17 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-13 09:28:17 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean:447 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-13 09:28:18 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration:258 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-13 09:28:19 [main] INFO  c.n.o.OtpServiceApplicationTests:59 - Started OtpServiceApplicationTests in 6.315 seconds (process running for 7.6)
+2026-06-13 09:28:19 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean:660 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-13 09:28:19 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource:349 - HikariPool-1 - Shutdown initiated...
+2026-06-13 09:28:19 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource:351 - HikariPool-1 - Shutdown completed.
