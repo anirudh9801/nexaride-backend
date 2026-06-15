@@ -15,7 +15,7 @@ public class GeoService {
         try {
             String encodedAddress = URLEncoder.encode(address, StandardCharsets.UTF_8);
 
-            // ✅ FINAL CORRECT URL
+            // FINAL CORRECT URL
             String url = "https://nominatim.openstreetmap.org/search?q="
                     + encodedAddress + "&format=json&limit=1";
 
@@ -34,14 +34,14 @@ public class GeoService {
                     String.class
             );
 
-            // ✅ STATUS CHECK
+            //  STATUS CHECK
             if (!response.getStatusCode().is2xxSuccessful()) {
                 throw new RuntimeException("Geo API failed: " + response.getStatusCode());
             }
 
             String body = response.getBody();
 
-            // ✅ SAFE NULL CHECK
+            // SAFE NULL CHECK
             if (body == null || body.trim().isEmpty()) {
                 throw new RuntimeException("Empty response from Geo API");
             }
@@ -49,12 +49,12 @@ public class GeoService {
             System.out.println("FINAL URL: " + url);
             System.out.println("RESPONSE BODY: " + body);
 
-            // ✅ VALIDATION
+            //  VALIDATION
             if (!body.contains("\"lat\"") || !body.contains("\"lon\"")) {
                 throw new RuntimeException("Invalid Geo response: " + body);
             }
 
-            // ✅ PARSING
+            //  PARSING
             String lat = body.split("\"lat\":\"")[1].split("\"")[0];
             String lon = body.split("\"lon\":\"")[1].split("\"")[0];
 
@@ -64,7 +64,7 @@ public class GeoService {
             };
 
         } catch (Exception e) {
-            e.printStackTrace(); // ✅ DEBUG
+            e.printStackTrace(); // DEBUG
             throw new RuntimeException("Error fetching coordinates: " + e.getMessage());
         }
     }
