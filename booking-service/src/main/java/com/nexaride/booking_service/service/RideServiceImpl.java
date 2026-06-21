@@ -4,10 +4,12 @@ import com.nexaride.booking_service.client.OtpClient;
 import com.nexaride.booking_service.dto.*;
 import com.nexaride.booking_service.entity.Ride;
 import com.nexaride.booking_service.entity.RideStatus;
+import com.nexaride.booking_service.event.BookingEvent;
 import com.nexaride.booking_service.mapper.RideMapper;
 import com.nexaride.booking_service.repository.RideRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,13 +22,19 @@ public class RideServiceImpl implements RideService{
     private final GeoService geoService;
     private final RideMapper rideMapper;
     private final OtpClient otpClient;
+    private final KafkaProducerService kafkaProducerService;
 
 
-    public RideServiceImpl(RideRepository rideRepository, GeoService geoService, RideMapper rideMapper, OtpClient otpClient) {
+
+    public RideServiceImpl(RideRepository rideRepository, GeoService geoService,
+                           RideMapper rideMapper, OtpClient otpClient,
+                           KafkaProducerService kafkaProducerService
+                           ) {
         this.rideRepository = rideRepository;
         this.geoService = geoService;
         this.rideMapper = rideMapper;
         this.otpClient = otpClient;
+        this.kafkaProducerService = kafkaProducerService;
     }
     @Value("${internal.api.key}")
     private String internalApiKey;
@@ -61,11 +69,16 @@ public class RideServiceImpl implements RideService{
         ride.setStatus(RideStatus.OTP_GENERATED);
         Ride saved = rideRepository.save(ride);
 
-        //Feign call -> Otp Service
+
+       //Feign call -> Otp Service
         log.info("Feign call initiating to call otp service");
         OtpResponse otpResponse = otpClient.generateOtp(
                 internalApiKey, new GenerateOtpRequest(email)
         );
+        //Async Event
+        BookingEvent event = new BookingEvent(saved.getId(), email, "BOOKED");
+        kafkaProducerService.sendBookingEvent(event);
+
         log.info("OTP generated: {}", otpResponse.getOtp());
         RideResponse response = rideMapper.toResponse(saved);
         response.setOtp(otpResponse.getOtp());
@@ -83,6 +96,7 @@ public class RideServiceImpl implements RideService{
         if (!ride.getUserEmail().equals(email)) {
             throw new RuntimeException("Unauthorized user for this ride");
         }
+
 
         log.info("Feign call for otpValidation from Otp Service");
         //Validate otp by feign
@@ -128,5 +142,6 @@ public class RideServiceImpl implements RideService{
 
 
     }
+
 
 }
