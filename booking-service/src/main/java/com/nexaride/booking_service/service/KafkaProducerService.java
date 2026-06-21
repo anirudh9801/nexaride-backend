@@ -15,7 +15,7 @@ public class KafkaProducerService {
     }
 
     public void sendBookingEvent(BookingEvent event){
-        kafkaTemplate.send("booking-created",event);
+        kafkaTemplate.send("booking-created",event.getRideId().toString(),event);
         log.info("Message Sent: "+event);
     }
 }
