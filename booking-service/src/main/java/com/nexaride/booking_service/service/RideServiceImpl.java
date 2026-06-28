@@ -65,18 +65,24 @@ public class RideServiceImpl implements RideService{
         log.info("After Setting Destination latitude: "+ride.getDestinationLatitude());
         log.info("After Setting Destination Longitude: "+ride.getDestinationLongitude());
 
-
-        ride.setStatus(RideStatus.OTP_GENERATED);
         Ride saved = rideRepository.save(ride);
-
-
        //Feign call -> Otp Service
         log.info("Feign call initiating to call otp service");
         OtpResponse otpResponse = otpClient.generateOtp(
                 internalApiKey, new GenerateOtpRequest(email)
         );
-        //Async Event
-        BookingEvent event = new BookingEvent(saved.getId(), email, "BOOKED");
+
+        saved.setStatus(RideStatus.OTP_GENERATED);
+        rideRepository.save(saved);
+
+        //Async Event -> RIDE BOOKED
+
+        // BOOKED event
+
+        // Kafka event
+        String eventType = RideStatus.BOOKED.name();
+        BookingEvent event = new BookingEvent(saved.getId(), email, eventType);
+        log.info("Sending Kafka event: {}",eventType);
         kafkaProducerService.sendBookingEvent(event);
 
         log.info("OTP generated: {}", otpResponse.getOtp());
@@ -108,6 +114,10 @@ public class RideServiceImpl implements RideService{
         ride.setStartedAt(LocalDateTime.now());
 
         Ride updated = rideRepository.save(ride);
+
+        //Async Event -> RIDE STARTED
+        BookingEvent event = new BookingEvent(updated.getId(),email,updated.getStatus().name());
+        kafkaProducerService.sendBookingEvent(event);
         return rideMapper.toResponse(updated);
     }
 
@@ -122,6 +132,10 @@ public class RideServiceImpl implements RideService{
         ride.setStatus(RideStatus.COMPLETED);
         ride.setCompletedAt(LocalDateTime.now());
         Ride updated = rideRepository.save(ride);
+
+        //Async Event - RIDE COMPLETED
+        BookingEvent event = new BookingEvent(updated.getId(),email,updated.getStatus().name());
+        kafkaProducerService.sendBookingEvent(event);
         log.info("Ride completed successfully for rideId: {}", rideId);
         return rideMapper.toResponse(updated);
     }
@@ -138,6 +152,9 @@ public class RideServiceImpl implements RideService{
 
         ride.setStatus(RideStatus.CANCELLED);
         Ride updated = rideRepository.save(ride);
+        //Async Event Sending/publishing to kafka
+        BookingEvent event = new BookingEvent(updated.getId(),email,updated.getStatus().name());
+        kafkaProducerService.sendBookingEvent(event);
         return rideMapper.toResponse(updated);
 
 

@@ -18,18 +18,23 @@ public class AuditService {
     }
 
     public void saveEvent(Long rideId, String email, String eventType){
-        AuditLog auditLog = new AuditLog();
-        log.debug("inside saveEvent method");
-        log.debug("Ride id: "+rideId);
-        auditLog.setRideId(rideId);
-        log.debug("Email: "+email);
-        auditLog.setEmail(email);
-        log.debug("Evenet type: "+eventType);
-        auditLog.setEventType(eventType);
-        log.debug("Created At: "+auditLog.getCreatedAt());
-        auditLog.setCreatedAt(LocalDateTime.now());
+        try{
+            AuditLog auditLog = new AuditLog();
+            log.debug("inside saveEvent method");
+            log.debug("Ride id: "+rideId);
+            auditLog.setRideId(rideId);
+            log.debug("Email: "+email);
+            auditLog.setEmail(email);
+            log.debug("Evenet type: "+eventType);
+            auditLog.setEventType(eventType);
+            log.debug("Created At: "+auditLog.getCreatedAt());
+            auditLog.setCreatedAt(LocalDateTime.now());
 
-        log.debug("Saving inside DB");
-        auditRepository.save(auditLog);
+            log.debug("Saving inside DB");
+            auditRepository.save(auditLog);
+        }catch (Exception e){
+            log.warn("Duplicate detected at DB level, skipping: {}-{}", rideId, eventType);
+        }
+
     }
 }

@@ -14,9 +14,8 @@ public class NotificationService {
         this.smsService = smsService;
     }
 
-    public void sendNotification(String email){
-log.info("Inside sendNotification method.");
-        String message = "Your ride has been booked successfully";
+    public void sendNotification(String email,String message){
+        log.info("Inside sendNotification method.");
         log.info("Calling email service");
         emailService.send(email,message);
         log.info("Calling sms service");

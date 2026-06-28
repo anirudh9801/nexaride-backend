@@ -1,9 +1,6 @@
 package com.nexaride.audit_service.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -14,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "audit_log",uniqueConstraints = @UniqueConstraint(columnNames = {"rideId","eventType"}))
 public class AuditLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
