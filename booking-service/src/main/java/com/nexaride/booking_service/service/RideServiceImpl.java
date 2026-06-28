@@ -23,18 +23,20 @@ public class RideServiceImpl implements RideService{
     private final RideMapper rideMapper;
     private final OtpClient otpClient;
     private final KafkaProducerService kafkaProducerService;
+    private final OtpServiceWrapper otpServiceWrapper;
 
 
 
     public RideServiceImpl(RideRepository rideRepository, GeoService geoService,
                            RideMapper rideMapper, OtpClient otpClient,
-                           KafkaProducerService kafkaProducerService
-                           ) {
+                           KafkaProducerService kafkaProducerService, OtpServiceWrapper otpServiceWrapper
+    ) {
         this.rideRepository = rideRepository;
         this.geoService = geoService;
         this.rideMapper = rideMapper;
         this.otpClient = otpClient;
         this.kafkaProducerService = kafkaProducerService;
+        this.otpServiceWrapper = otpServiceWrapper;
     }
     @Value("${internal.api.key}")
     private String internalApiKey;
@@ -66,11 +68,8 @@ public class RideServiceImpl implements RideService{
         log.info("After Setting Destination Longitude: "+ride.getDestinationLongitude());
 
         Ride saved = rideRepository.save(ride);
-       //Feign call -> Otp Service
-        log.info("Feign call initiating to call otp service");
-        OtpResponse otpResponse = otpClient.generateOtp(
-                internalApiKey, new GenerateOtpRequest(email)
-        );
+       //Feign call -> Otp Service -> Circuit breaker call
+        OtpResponse otpResponse = otpServiceWrapper.callOtpService(email);
 
         saved.setStatus(RideStatus.OTP_GENERATED);
         rideRepository.save(saved);
